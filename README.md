@@ -1,6 +1,6 @@
 # duckdb-speed-comparison
 
-Repository to compare speed for using duckdb entirely with duckdb and parquet. This is created to test speed for a very specific use case that I have.
+Repository to compare speed for using duckdb entirely with duckdb and parquet. Also comparing it with `duckplyr` operations. This is created to test speed for a very specific use case that I have.
 
 ## Use Case :
 
@@ -8,10 +8,11 @@ The use case that I have is that there is a master file used for caching results
 
 ## Details :
 
-The two versions that we are comparing here are :
+The three versions that we are comparing here are :
 
 -   Storing master file in duckdb called as `master_file` table.
 -   Storing master file in parquet format called as `output.parquet`
+-   Use `duckplyr` functions instead of SQL to update data
 
 ### File details :
 
@@ -21,15 +22,18 @@ The two versions that we are comparing here are :
 
 **parquet_demo.R** - This file has a function `run_parquet_fun` which saves master file in a parquet format.
 
+**duckplyr_demo.R** - This file has a function `run_duckplyr_fun` which saves master file in a parquet format and use `duckplyr` for query operations.
+
 **comparison.R** - This file brings all the functions in one place and does the speed comparison between two versions.
 
 ## Comparison result :
 
 ```         
-Unit: milliseconds     
-   expr     min       lq     mean   median       uq      max neval  
-parquet 14.4265 21.14200 64.78641 24.58965 33.74545 463.1006   100   
-duckdb  9.9691  13.28885 42.21714 15.42500 19.78055 528.3412   100
+Unit: milliseconds
+     expr     min       lq     mean   median       uq      max neval
+  parquet 14.6805 18.07985 38.56132 21.19045 23.92260 368.2266   100
+   duckdb  9.8771 13.12040 35.18727 14.55240 17.52330 338.6026   100
+ duckplyr 14.9388 21.43150 59.34178 26.39650 36.74165 638.6901   100
 ```
 
 Speed-wise definitely duckdb fares well however, if you compare file size `demo.duckdb` takes up more space than `output.parquet` file.

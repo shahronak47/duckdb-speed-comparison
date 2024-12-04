@@ -1,5 +1,6 @@
 library(duckdb)
 library(arrow)
+library(duckplyr)
 
 con <- dbConnect(duckdb::duckdb(), dbdir = "demo.duckdb")
 
